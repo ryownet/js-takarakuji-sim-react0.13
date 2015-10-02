@@ -8,6 +8,9 @@
   var judge = require('./_judge');
   var React = require('react');
 
+  //速度計測用. 10秒間のくじ判定数をアラート
+  var isDebug = false;
+
 
 
 // React Class
@@ -87,6 +90,13 @@
     onStart: function () {
       model.isStop = false;
       kujiUtil.intervalID = setInterval( this.getKuji, kujiUtil.INTERVAL );
+      if(isDebug){
+        setTimeout(function (){
+          clearInterval( kujiUtil.intervalID );
+          model.isStop = true;
+          window.alert(model.totalKujiCount);
+        }, 10000);
+      }
       React.render(
         <ActionBarArea />,
         d.getElementById('jsx-actionBarArea')
